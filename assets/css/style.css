@@ -158,11 +158,42 @@ a:hover {
   color: #4e4e4e;
 }
 
+.chart {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 40px auto;
+  position: relative;
+  text-align: center;
+}
+.chart span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -30px;
+  width: 100%;
+}
+.chart span strong {
+  display: block;
+}
+.chart canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
 .line-mf {
   width: 40px;
   height: 5px;
   background-color: #0078ff;
   margin: 0 auto;
+}
+
+.line-ab {
+  width: 40px;
+  height: 5px;
+  background-color: #0078ff;
+  margin: 0 100px 0;
 }
 
 /*--/ Title Left /--*/
@@ -182,6 +213,11 @@ a:hover {
   background-color: #0078ff;
   width: 100px;
   bottom: -12px;
+}
+
+.title-center {
+  font-size: 2rem;
+  position: relative;
 }
 
 /*------/ Box /------*/
@@ -1704,4 +1740,8 @@ footer .credits a {
     left: -14px;
     right: auto;
   }
+}
+
+.js .animate-box {
+  opacity: 0;
 }

@@ -1,5 +1,26 @@
-(function() {
+(function () {
   "use strict";
+
+  var isMobile = {
+    Android: function () {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
 
   /**
    * Easy selector helper function
@@ -107,7 +128,7 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
+  on('click', '.mobile-nav-toggle', function (e) {
     select('#navbar').classList.toggle('navbar-mobile')
     this.classList.toggle('bi-list')
     this.classList.toggle('bi-x')
@@ -116,7 +137,7 @@
   /**
    * Mobile nav dropdowns activate
    */
-  on('click', '.navbar .dropdown > a', function(e) {
+  on('click', '.navbar .dropdown > a', function (e) {
     if (select('#navbar').classList.contains('navbar-mobile')) {
       e.preventDefault()
       this.nextElementSibling.classList.toggle('dropdown-active')
@@ -126,7 +147,7 @@
   /**
    * Scrool with ofset on links with a class name .scrollto
    */
-  on('click', '.scrollto', function(e) {
+  on('click', '.scrollto', function (e) {
     if (select(this.hash)) {
       e.preventDefault()
 
@@ -219,6 +240,87 @@
       preloader.remove()
     });
   }
+
+  var contentWayPoint = function () {
+    var i = 0;
+    $('.animate-box').waypoint(function (direction) {
+      if (direction === 'down' && !$(this.element).hasClass('animated-fast')) {
+        i++;
+        $(this.element).addClass('item-animate');
+        setTimeout(function () {
+          $('body .animate-box.item-animate').each(function (k) {
+            var el = $(this);
+            setTimeout(function () {
+              var effect = el.data('animate-effect');
+              if (effect === 'fadeIn') {
+                el.addClass('fadeIn animated-fast');
+              } else if (effect === 'fadeInLeft') {
+                el.addClass('fadeInLeft animated-fast');
+              } else if (effect === 'fadeInRight') {
+                el.addClass('fadeInRight animated-fast');
+              } else {
+                el.addClass('fadeInUp animated-fast');
+              }
+              el.removeClass('item-animate');
+            }, k * 100, 'easeInOutExpo');
+          });
+        }, 50);
+      }
+    }, { offset: '85%' });
+  };
+
+  var pieChart = function () {
+    $('.chart').easyPieChart({
+      scaleColor: false,
+      lineWidth: 4,
+      lineCap: 'butt',
+      barColor: '#0078ff',
+      trackColor: "#f5f5f5",
+      size: 160,
+      animate: 1000
+    });
+  };
+
+  var skillsWayPoint = function () {
+    if ($('#skills').length > 0) {
+      $('#skills').waypoint(function (direction) {
+
+        if (direction === 'down' && !$(this.element).hasClass('animated')) {
+          setTimeout(pieChart, 400);
+          $(this.element).addClass('animated');
+        }
+      }, { offset: '90%' });
+    }
+  };
+
+  // Parallax
+  var parallax = function () {
+    $(window).stellar();
+  };
+
+  var fullHeight = function () {
+
+    if (!isMobile.any()) {
+      $('.js-fullheight').css('height', $(window).height());
+      $(window).resize(function () {
+        $('.js-fullheight').css('height', $(window).height());
+      });
+    }
+  };
+
+  // Loading page
+  var loaderPage = function () {
+    $(".main-loader").fadeOut("slow");
+  };
+
+  $(function () {
+    contentWayPoint();
+    loaderPage();
+    fullHeight();
+    parallax();
+    // pieChart();
+    skillsWayPoint();
+  });
 
   /**
    * Initiate Pure Counter 
