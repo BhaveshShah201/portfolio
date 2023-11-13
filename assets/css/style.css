@@ -91,6 +91,21 @@ a:hover {
   }
 }
 
+@media (min-width: 200px) {
+  #hero {
+    background-attachment: scroll;
+	background-image: url(../img/BS2.png) !important;
+  }
+}
+
+@media (min-width: 500px) {
+  #hero {
+    background-attachment: scroll;
+	background-image: url(../img/BS1.png) !important;
+  }
+}
+
+
 .overlay-mf {
   background-color: #0078ff;
 }
