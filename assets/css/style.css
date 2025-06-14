@@ -1839,6 +1839,41 @@ footer .credits a {
     padding: 8px 16px;
   }
   .site-counter-fixed {
-    bottom: 180px;
+    bottom: 100px;
   }
+}
+
+.counter-hide-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  margin-left: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0 4px;
+  border-radius: 50%;
+}
+.counter-hide-btn:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.15);
+}
+
+.counter-show-btn {
+  background: transparent;
+  border: none;
+  color: #0078ff;
+  font-size: 22px;
+  margin-left: 10px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  padding: 2px 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.counter-show-btn:hover {
+  opacity: 1;
+  background: rgba(0,120,255,0.08);
 }

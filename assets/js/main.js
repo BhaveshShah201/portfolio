@@ -456,4 +456,23 @@
     });
   });
 
+  document.addEventListener('DOMContentLoaded', function () {
+    const counterFixed = document.querySelector('.site-counter-fixed');
+    const hideBtn = document.getElementById('hideCounterBtn');
+    const showBtn = document.getElementById('showCounterBtn');
+
+    if (hideBtn && showBtn && counterFixed) {
+      hideBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        counterFixed.style.display = 'none';
+        showBtn.style.display = 'inline-block';
+      });
+
+      showBtn.addEventListener('click', function () {
+        counterFixed.style.display = '';
+        showBtn.style.display = 'none';
+      });
+    }
+  });
+
 })()
