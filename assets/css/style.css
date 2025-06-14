@@ -1760,3 +1760,29 @@ footer .credits a {
 .js .animate-box {
   opacity: 0;
 }
+
+.site-counter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  margin-left: 20px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.site-counter i {
+  font-size: 16px;
+}
+
+.site-counter span {
+  font-weight: bold;
+}
+
+@media (max-width: 991px) {
+  .site-counter {
+    display: none;
+  }
+}

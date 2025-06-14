@@ -327,4 +327,102 @@
    */
   new PureCounter();
 
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyB0OE8_k8SJauRqpzLxlu3ap4Qz2PKIY0g",
+    authDomain: "portfolio-e8c11.firebaseapp.com",
+    databaseURL: "https://portfolio-e8c11-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "portfolio-e8c11",
+    storageBucket: "portfolio-e8c11.firebasestorage.app",
+    messagingSenderId: "554522769500",
+    appId: "1:554522769500:web:5ab0bf9190a3df4d4c8e99",
+    measurementId: "G-LJZT8WX7EW"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Site Visit Counter
+  document.addEventListener('DOMContentLoaded', function() {
+    const counterElement = document.getElementById('hitCounter');
+    const database = firebase.database();
+    const counterRef = database.ref('visitorCount');
+    
+    async function updateCounter() {
+        try {
+            // Show loading state
+            counterElement.textContent = '...';
+            
+            // Get the current count
+            const snapshot = await counterRef.once('value');
+            let count = snapshot.val() || 0;
+            
+            // Increment the count
+            count++;
+            
+            // Update the count in Firebase
+            await counterRef.set(count);
+            
+            // Update the display
+            counterElement.textContent = count;
+        } catch (error) {
+            console.error('Error updating counter:', error);
+            // Fallback to localStorage if Firebase fails
+            let count = parseInt(localStorage.getItem('siteHits')) || 0;
+            count++;
+            localStorage.setItem('siteHits', count);
+            counterElement.textContent = count;
+        }
+    }
+
+    // Update counter when page loads
+    updateCounter();
+  });
+
+  // Contact Form Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.querySelector('.email-form');
+    const loadingDiv = contactForm.querySelector('.loading');
+    const errorDiv = contactForm.querySelector('.error-message');
+    const successDiv = contactForm.querySelector('.sent-message');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+
+            try {
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.querySelector('textarea[name="message"]').value,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Save message to Firebase
+                const messagesRef = database.ref('messages');
+                await messagesRef.push(formData);
+
+                // Show success message
+                successDiv.style.display = 'block';
+                loadingDiv.style.display = 'none';
+                
+                // Reset form
+                contactForm.reset();
+            } catch (error) {
+                console.error('Error sending message:', error);
+                errorDiv.textContent = 'Failed to send message. Please try again.';
+                errorDiv.style.display = 'block';
+                loadingDiv.style.display = 'none';
+            }
+        });
+    }
+  });
+
 })()
