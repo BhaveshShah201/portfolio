@@ -425,4 +425,35 @@
     }
   });
 
+  document.addEventListener('DOMContentLoaded', function () {
+    const dragDiv = document.querySelector('.site-counter-fixed');
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    dragDiv.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      dragDiv.style.transition = 'none';
+      offsetX = e.clientX - dragDiv.getBoundingClientRect().left;
+      offsetY = e.clientY - dragDiv.getBoundingClientRect().top;
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (isDragging) {
+        dragDiv.style.left = (e.clientX - offsetX) + 'px';
+        dragDiv.style.top = (e.clientY - offsetY) + 'px';
+        dragDiv.style.right = 'auto';
+        dragDiv.style.bottom = 'auto';
+        dragDiv.style.transform = 'none';
+        dragDiv.style.position = 'fixed';
+      }
+    });
+
+    document.addEventListener('mouseup', function () {
+      isDragging = false;
+      dragDiv.style.transition = '';
+      document.body.style.userSelect = '';
+    });
+  });
+
 })()
