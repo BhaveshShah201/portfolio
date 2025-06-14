@@ -396,6 +396,7 @@
             successDiv.style.display = 'none';
 
             try {
+                const database = firebase.database();
                 // Get form data
                 const formData = {
                     name: document.getElementById('name').value,
