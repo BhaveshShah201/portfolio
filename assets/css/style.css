@@ -1780,7 +1780,7 @@ footer .credits a {
 .site-counter-fixed {
   position: fixed;
   left: 50%;
-  bottom: 180px;
+  bottom: 100px;
   transform: translateX(-50%);
   z-index: 9999;
   pointer-events: none;
@@ -1795,52 +1795,34 @@ footer .credits a {
 .site-counter {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  background: rgba(30, 58, 138, 0.35); /* semi-transparent blue */
-  padding: 12px 32px;
-  border-radius: 32px;
+  font-size: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 24px;
+  border-radius: 30px;
   margin-bottom: 0;
-  transition: box-shadow 0.3s, background 0.3s;
+  transition: all 0.3s ease;
   justify-content: center;
-  letter-spacing: 0.5px;
-  border: 1.5px solid rgba(255,255,255,0.18);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  opacity: 0.8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  cursor: grab;
-  user-select: none;
-}
-
-.site-counter:active {
-  cursor: grabbing;
 }
 
 .site-counter:hover {
-  background: rgba(30, 58, 138, 0.55);
-  box-shadow: 0 6px 32px rgba(0,120,255,0.25);
+  background: rgba(0, 0, 0, 0.85);
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .site-counter i {
-  color: #fff;
-  font-size: 20px;
-  filter: drop-shadow(0 0 2px #0078ff);
+  color: #0078ff;
+  font-size: 18px;
 }
 
 .site-counter span {
-  font-weight: 600;
-}
-
-@media (max-width: 576px) {
-  .site-counter {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-  .site-counter-fixed {
-    bottom: 100px;
-  }
+  font-weight: 500;
 }
 
 .counter-hide-btn {
@@ -1860,33 +1842,43 @@ footer .credits a {
   background: rgba(0,0,0,0.15);
 }
 
+@media (max-width: 576px) {
+  .site-counter {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+}
+
 .counter-show-btn {
   position: fixed;
   left: 18px;
   bottom: 80px;
-  background: #fff;
+  background: rgba(30, 58, 138, 0.22); /* semi-transparent blue */
   border: none;
   color: #0078ff;
   font-size: 22px;
   cursor: pointer;
   opacity: 0.85;
-  transition: opacity 0.2s, box-shadow 0.2s;
-  padding: 6px 10px;
+  transition: opacity 0.2s, box-shadow 0.2s, background 0.2s;
+  padding: 7px 11px 7px 11px;
   border-radius: 50%;
   z-index: 10000;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  outline: none;
 }
 .counter-show-btn:hover {
   opacity: 1;
+  background: rgba(0,120,255,0.18);
   box-shadow: 0 4px 16px rgba(0,120,255,0.12);
-  background: #e6f0fa;
 }
 
 @media (max-width: 576px) {
   .counter-show-btn {
     left: 10px;
     bottom: 60px;
-    font-size: 20px;
-    padding: 4px 8px;
+    font-size: 18px;
+    padding: 5px 8px 5px 8px;
   }
 }
