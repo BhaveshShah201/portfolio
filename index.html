@@ -546,6 +546,36 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/modernizr-2.6.2.min.js"></script>
+  <script>
+    (function() {
+      var track = document.querySelector('.blog-iframe-track');
+      var autoScrollInterval;
+      var scrollAmount = 504 + 16; // width + gap (adjust gap as needed)
+
+      function scrollRight() {
+        if (track) {
+          // If at end, scroll to start
+          if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          }
+        }
+      }
+      function startAutoScroll() {
+        stopAutoScroll();
+        autoScrollInterval = setInterval(scrollRight, 4000);
+      }
+      function stopAutoScroll() {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+      }
+      if (track) {
+        track.addEventListener('mouseenter', stopAutoScroll);
+        track.addEventListener('mouseleave', startAutoScroll);
+        startAutoScroll();
+      }
+    })();
+  </script>
 </body>
 
 </html>
