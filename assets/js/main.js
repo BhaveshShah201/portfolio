@@ -476,4 +476,92 @@
     }
   });
 
+  // Blog Carousel: Responsive iframe height (optional, for dynamic content)
+  function resizeBlogIframes() {
+    var iframes = document.querySelectorAll('#blogCarousel iframe');
+    iframes.forEach(function(iframe) {
+      iframe.style.height = Math.max(iframe.offsetWidth * 1.1, 320) + 'px';
+    });
+  }
+  window.addEventListener('resize', resizeBlogIframes);
+  document.addEventListener('DOMContentLoaded', function() {
+    resizeBlogIframes();
+    // Initialize Bootstrap carousel if needed
+    if (window.bootstrap && document.querySelector('#blogCarousel')) {
+      var carouselEl = document.querySelector('#blogCarousel');
+      if (!carouselEl.classList.contains('carousel')) {
+        carouselEl.classList.add('carousel');
+      }
+      // Optionally, you can initialize via JS if not auto-init
+      // new bootstrap.Carousel(carouselEl);
+    }
+  });
+
+  // Blog Swiper initialization
+  if (window.Swiper) {
+    document.addEventListener('DOMContentLoaded', function() {
+      var blogSwiper = new Swiper('#blogSwiper', {
+        slidesPerView: 1,
+        spaceBetween: 32,
+        centeredSlides: true,
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        breakpoints: {
+          900: {
+            slidesPerView: 1,
+          },
+          600: {
+            slidesPerView: 1,
+          }
+        }
+      });
+    });
+  }
+
+  // Blog Iframe Carousel Controls and Auto-Rotate
+  (function() {
+    var track = document.querySelector('.blog-iframe-track');
+    var leftBtn = document.getElementById('blogCarouselLeft');
+    var rightBtn = document.getElementById('blogCarouselRight');
+    var autoScrollInterval;
+    var scrollAmount = 370; // px, slightly more than iframe width + gap
+
+    function scrollLeft() {
+      if (track) track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+    function scrollRight() {
+      if (track) track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+    function startAutoScroll() {
+      stopAutoScroll();
+      autoScrollInterval = setInterval(function() {
+        if (track) {
+          // If at end, scroll to start
+          if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            scrollRight();
+          }
+        }
+      }, 4000);
+    }
+    function stopAutoScroll() {
+      if (autoScrollInterval) clearInterval(autoScrollInterval);
+    }
+    if (leftBtn) leftBtn.addEventListener('click', scrollLeft);
+    if (rightBtn) rightBtn.addEventListener('click', scrollRight);
+    if (track) {
+      track.addEventListener('mouseenter', stopAutoScroll);
+      track.addEventListener('mouseleave', startAutoScroll);
+      startAutoScroll();
+    }
+  })();
+
 })()
