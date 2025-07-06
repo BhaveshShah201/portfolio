@@ -1951,8 +1951,8 @@ footer .credits a {
 }
 .card-blog .blog-iframe-wrapper iframe {
   width: 100%;
-  max-width: 350px;
-  height: 350px;
+  max-width: 504px;
+  height: 510px;
   min-height: 250px;
   border-radius: 10px;
   border: 1px solid #e3e3e3;
