@@ -2020,8 +2020,8 @@ footer .credits a {
 .card-blog .blog-iframe-wrapper {
   flex: 1 1 0;
   width: 100%;
-  min-width: 350px;
-  min-height: 510px;
+  min-width: 370px;
+  min-height: 545px;
   height: 510px;
   display: flex;
   align-items: center;
@@ -2090,8 +2090,4 @@ footer .credits a {
 .blog-iframe-link:active .blog-iframe-wrapper {
   transform: none !important;
   animation: none !important;
-}
-
-.blog-iframe-track .blog-iframe-link:nth-child(n+4) {
-  display: none !important;
 }
