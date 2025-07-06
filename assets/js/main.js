@@ -528,40 +528,45 @@
   // Blog Iframe Carousel Controls and Auto-Rotate
   (function() {
     var track = document.querySelector('.blog-iframe-track');
-    var leftBtn = document.getElementById('blogCarouselLeft');
-    var rightBtn = document.getElementById('blogCarouselRight');
     var autoScrollInterval;
-    var scrollAmount = 370; // px, slightly more than iframe width + gap
 
-    function scrollLeft() {
-      if (track) track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    function getScrollAmount() {
+      if (!track || !track.firstElementChild) return 0;
+      var card = track.firstElementChild;
+      var style = window.getComputedStyle(card);
+      var gap = parseInt(style.marginRight) || 16; // fallback gap
+      return card.offsetWidth + gap;
     }
+
     function scrollRight() {
-      if (track) track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      if (track) {
+        // If at end, scroll to start
+        if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        }
+      }
     }
     function startAutoScroll() {
       stopAutoScroll();
-      autoScrollInterval = setInterval(function() {
-        if (track) {
-          // If at end, scroll to start
-          if (track.scrollLeft + track.offsetWidth >= track.scrollWidth - 10) {
-            track.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            scrollRight();
-          }
-        }
-      }, 4000);
+      autoScrollInterval = setInterval(scrollRight, 4000);
     }
     function stopAutoScroll() {
       if (autoScrollInterval) clearInterval(autoScrollInterval);
     }
-    if (leftBtn) leftBtn.addEventListener('click', scrollLeft);
-    if (rightBtn) rightBtn.addEventListener('click', scrollRight);
     if (track) {
       track.addEventListener('mouseenter', stopAutoScroll);
       track.addEventListener('mouseleave', startAutoScroll);
       startAutoScroll();
     }
   })();
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var track = document.querySelector('.blog-iframe-track');
+    if (track) {
+      track.scrollLeft = 0;
+    }
+  });
 
 })()
