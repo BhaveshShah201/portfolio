@@ -1989,28 +1989,17 @@ footer .credits a {
 
 /* Blog Iframe Horizontal Carousel - Always single row, horizontal scroll */
 .blog-iframe-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
   width: 100%;
-  margin: 0 auto 1.5rem auto;
-  max-width: 100vw;
-  overflow: hidden;
+  overflow-x: auto;
 }
 .blog-iframe-track {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  gap: 1.5rem;
-  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1.2rem;
   width: 100%;
-  max-width: 100vw;
+  overflow-x: auto;
   scrollbar-width: none;
-  white-space: nowrap;
 }
 .blog-iframe-track::-webkit-scrollbar {
   display: none;
@@ -2018,35 +2007,29 @@ footer .credits a {
 .blog-iframe-wrapper {
   flex: 0 0 350px;
   width: 350px;
+  height: 350px;
   max-width: 90vw;
   min-width: 220px;
-  transition: transform 0.3s;
-  display: flex !important;
-  vertical-align: top;
-  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
-@media (max-width: 1200px) {
-  .blog-iframe-wrapper {
-    flex: 0 0 300px;
-    width: 300px;
-    max-width: 300px;
-  }
-}
-@media (max-width: 900px) {
-  .blog-iframe-wrapper {
-    flex: 0 0 240px;
-    width: 240px;
-    max-width: 240px;
-  }
+.blog-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #e3e3e3;
+  background: #f8f9fa;
 }
 @media (max-width: 600px) {
   .blog-iframe-wrapper {
     flex: 0 0 90vw;
     width: 90vw;
-    min-width: 220px;
+    height: 220px;
+    min-width: 120px;
     max-width: 95vw;
   }
 }
@@ -2075,26 +2058,10 @@ footer .credits a {
   transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
 }
 .blog-iframe-link:hover .blog-iframe-wrapper {
-  transform: scale(1.04) rotate(-1deg);
-  animation: blog-shake 0.25s 1;
-  box-shadow: 0 8px 32px rgba(0,120,255,0.10);
-  background: #fff;
-  outline: none;
+  transform: none;
+  animation: none;
+  transition: none;
 }
-.blog-iframe-link:active .blog-iframe-wrapper,
-.blog-iframe-link:hover:active .blog-iframe-wrapper {
-  transform: none !important;
-  animation: none !important;
-  transition: transform 0.1s;
-}
-@keyframes blog-shake {
-  0% { transform: scale(1.04) rotate(-1deg); }
-  25% { transform: scale(1.04) rotate(1.5deg); }
-  50% { transform: scale(1.04) rotate(-1.5deg); }
-  75% { transform: scale(1.04) rotate(1deg); }
-  100% { transform: scale(1.04) rotate(0deg); }
-}
-
 .blog-iframe-link:active .blog-iframe-wrapper {
   transform: none !important;
   animation: none !important;
